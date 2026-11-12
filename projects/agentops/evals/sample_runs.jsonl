@@ -1,0 +1,2 @@
+{"run_id":"sample-001","project":"codepilot","task_id":"codepilot-001","status":"completed","steps":7,"latency_ms":4200,"input_tokens":1200,"output_tokens":800,"estimated_cost":0.02,"tool_errors":0}
+{"run_id":"sample-002","project":"knowledge-agent","task_id":"knowledge-001","status":"failed","steps":4,"latency_ms":2100,"input_tokens":700,"output_tokens":400,"estimated_cost":0.01,"tool_errors":1}

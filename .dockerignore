@@ -1,0 +1,14 @@
+.git
+.venv
+.runtime
+.pytest_cache
+.ruff_cache
+__pycache__
+*.py[cod]
+.env
+.env.*
+!.env.example
+docs
+projects/*/tests
+projects/*/evals
+!projects/codepilot/evals

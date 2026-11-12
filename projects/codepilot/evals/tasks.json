@@ -1,0 +1,38 @@
+[
+  {
+    "id": "codepilot-001",
+    "issue": "修复用户注册时邮箱为空导致的异常",
+    "repo": "fixtures/user-service",
+    "test_command": "pytest tests/test_user.py",
+    "expected_files": ["user/service.py"]
+  },
+  {
+    "id": "codepilot-002",
+    "issue": "为订单金额增加非负校验",
+    "repo": "fixtures/order-service",
+    "test_command": "pytest tests/test_order.py",
+    "expected_files": ["order/service.py"]
+  },
+  {
+    "id": "codepilot-003",
+    "issue": "修复分页参数为零时的边界错误",
+    "repo": "fixtures/paging-service",
+    "test_command": "pytest tests/test_paging.py",
+    "expected_files": ["paging/service.py"]
+  },
+  {
+    "id": "codepilot-004",
+    "issue": "修复邮箱规范化函数对 None 输入的处理",
+    "repo": "fixtures/user-service",
+    "test_command": "pytest tests/test_user.py",
+    "expected_files": ["user/service.py"],
+    "metadata": {"variant": "nullable-email"}
+  },
+  {
+    "id": "codepilot-005",
+    "issue": "修复订单金额为负数时仍然被接受的问题",
+    "repo": "fixtures/order-service",
+    "test_command": "pytest tests/test_order.py",
+    "expected_files": ["order/service.py"]
+  }
+]

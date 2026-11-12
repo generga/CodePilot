@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark light">
+    <title>CodePilot Console</title>
+    <link rel="stylesheet" href="/console/assets/styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand-mark" aria-hidden="true">CP</div>
+      <div>
+        <p class="eyebrow">ENGINEERING AGENT</p>
+        <h1>CodePilot Console</h1>
+      </div>
+      <div class="topbar-status" id="health-status" data-state="unknown">
+        <span class="status-dot"></span>
+        <span id="health-label">未连接</span>
+      </div>
+    </header>
+
+    <main class="shell">
+      <section class="command-panel panel">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">NEW RUN</p>
+            <h2>提交研发任务</h2>
+          </div>
+          <button class="icon-button" id="refresh-button" type="button" title="刷新任务状态" aria-label="刷新任务状态">↻</button>
+        </div>
+        <form id="task-form">
+          <label>
+            <span>仓库路径</span>
+            <input id="repo-path" name="repo_path" required placeholder="D:\\codepilot-demo-repo">
+          </label>
+          <label class="wide-field">
+            <span>问题描述</span>
+            <textarea id="issue" name="issue" required rows="4" placeholder="描述需要修复的行为、影响范围和验收条件"></textarea>
+          </label>
+          <div class="credential-grid">
+            <label>
+              <span>执行 API Key</span>
+              <input id="api-key" name="api_key" type="password" autocomplete="off" required placeholder="developer key">
+            </label>
+            <label>
+              <span>审批 API Key</span>
+              <input id="approval-key" name="approval_key" type="password" autocomplete="off" placeholder="reviewer key，可留空">
+            </label>
+          </div>
+          <div class="form-footer">
+            <span class="helper" id="form-message">密钥仅保存在当前浏览器会话。</span>
+            <button class="primary-button" type="submit"><span aria-hidden="true">+</span> 创建任务</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="metrics-strip panel" aria-label="运行指标">
+        <div class="metric-item"><span>成功率</span><strong id="metric-success">0%</strong></div>
+        <div class="metric-item"><span>平均执行</span><strong id="metric-duration">0 ms</strong></div>
+        <div class="metric-item"><span>模型调用</span><strong id="metric-calls">0</strong></div>
+        <div class="metric-item"><span>Token</span><strong id="metric-tokens">0</strong></div>
+        <div class="metric-item"><span>队列</span><strong id="metric-queue">0</strong></div>
+      </section>
+
+      <section class="workspace-grid">
+        <aside class="task-list-panel panel">
+          <div class="section-heading compact-heading">
+            <div>
+              <p class="eyebrow">WORK QUEUE</p>
+              <h2>任务队列</h2>
+            </div>
+            <span class="count-badge" id="task-count">0</span>
+          </div>
+          <div id="task-list" class="task-list">
+            <div class="empty-state">还没有任务</div>
+          </div>
+        </aside>
+
+        <section class="detail-panel panel" id="detail-panel">
+          <div class="empty-detail" id="empty-detail">
+            <div class="empty-icon" aria-hidden="true">⌘</div>
+            <h2>选择一个任务</h2>
+            <p>任务状态、Diff 和测试结果会显示在这里。</p>
+          </div>
+          <div id="task-detail" class="hidden">
+            <div class="detail-header">
+              <div>
+                <p class="eyebrow" id="detail-task-id">TASK</p>
+                <h2 id="detail-issue">任务详情</h2>
+              </div>
+              <span class="status-pill" id="detail-status">pending</span>
+            </div>
+            <div class="metadata" id="detail-meta"></div>
+            <div class="progress-track" id="progress-track" aria-label="任务进度"></div>
+            <article class="attempts-card">
+              <div class="card-heading">
+                <h3>执行尝试</h3>
+                <span id="attempt-count">0</span>
+              </div>
+              <div id="attempt-list" class="attempt-list"></div>
+            </article>
+            <article class="events-card">
+              <div class="card-heading">
+                <h3>活动日志</h3>
+                <span id="event-count">0</span>
+              </div>
+              <div id="event-list" class="event-list"></div>
+            </article>
+            <div class="action-row" id="action-row"></div>
+
+            <div class="result-grid">
+              <article class="result-card">
+                <div class="card-heading">
+                  <h3>变更文件</h3>
+                  <span id="file-count">0</span>
+                </div>
+                <ul id="file-list" class="file-list"><li>暂无文件</li></ul>
+              </article>
+              <article class="result-card">
+                <div class="card-heading">
+                  <h3>验证结果</h3>
+                  <span id="test-state">未运行</span>
+                </div>
+                <pre id="test-output" class="output-box">等待测试结果</pre>
+              </article>
+            </div>
+
+            <article class="diff-card">
+              <div class="card-heading">
+                <h3>Diff</h3>
+                <button class="text-button" id="copy-diff" type="button">复制</button>
+              </div>
+              <pre id="diff-output" class="diff-box">暂无待审批补丁</pre>
+            </article>
+
+            <div class="error-box hidden" id="error-box"></div>
+          </div>
+        </section>
+      </section>
+    </main>
+    <script src="/console/assets/app.js?v=20260826-3" defer></script>
+  </body>
+</html>
