@@ -1,5 +1,7 @@
 # CodePilot
 
+[![quality](https://github.com/generga/CodePilot/actions/workflows/ci.yml/badge.svg)](https://github.com/generga/CodePilot/actions/workflows/ci.yml)
+
 带人工审批、测试反馈和可恢复审批会话的研发协作 Agent，面向受控的小型 Python 仓库。
 
 输入问题描述和仓库路径，系统搜索和读取代码、提出统一 Diff；人工批准后应用补丁并运行 pytest，保存任务结果和审计事件。
@@ -55,6 +57,8 @@ node --check projects/codepilot/web/app.js
 ```
 
 真实 Redis 测试需设置 CODEPILOT_TEST_REDIS_URL 指向专用实例，未配置时跳过。Compose 启动前，在 .env 设置服务访问密钥，并设置 CODEPILOT_REPO_ROOT 为测试仓库绝对路径，再执行 docker compose up --build -d。容器内仓库路径为 /repos，控制台端口为 8000。
+
+首次发布的 [Linux CI 验证](https://github.com/generga/CodePilot/actions/runs/43216024272)：96 项测试通过，包含真实 Redis 集成；镜像构建和容器内五条确定性评估通过。真实模型质量不包含在该结果中。
 
 ## 当前范围
 
